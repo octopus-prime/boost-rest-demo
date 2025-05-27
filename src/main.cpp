@@ -38,7 +38,7 @@ int main() {
         auto sessions = client.get_sessions(meeting_key);
         std::ranges::sort(sessions, {}, &session::session_key);
         std::print("\033[2J\033[H");
-        std::println("Results for meeting {} in year {}:", meeting->meeting_name, year);
+        std::println("Sessions for meeting {} in year {}:", meeting->meeting_name, year);
         std::println("");
         std::println("Key  Name");
         std::println("----------------------------------------------------");
