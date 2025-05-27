@@ -66,7 +66,7 @@ int main() {
         }
 
         std::print("\033[2J\033[H");
-        std::println("Drivers for session {} in meeting {} in year {}:", session->session_name, meeting->meeting_name, year);
+        std::println("Results for session {} in meeting {} in year {}:", session->session_name, meeting->meeting_name, year);
         std::println("");
         std::println("#  Driver");
         std::println("----------------------------------------------------");
