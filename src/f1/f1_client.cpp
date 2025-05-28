@@ -65,7 +65,7 @@ template<class T,
 // -------
 #endif
 
-f1_client::f1_client() : client{"https://api.openf1.org:443", ssl::context::tlsv13_client} {
+f1_client::f1_client() : client{"https://api.openf1.org", ssl::context::tlsv13_client} {
 }
 
 meetings f1_client::get_meetings(std::uint64_t year) const {

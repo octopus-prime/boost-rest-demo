@@ -13,7 +13,7 @@ http_client::http_client(std::string_view url_, ssl::context::method method) : u
         throw boost::system::system_error{ec};
     }
 
-    auto const results = resolver.resolve(url.host(), url.port());
+    auto const results = resolver.resolve(url.host(), url.scheme());
     beast::get_lowest_layer(stream).connect(results);
     stream.handshake(ssl::stream_base::client);    
 }
