@@ -16,5 +16,5 @@ find_package(Boost REQUIRED COMPONENTS headers url json)
 find_package(Threads REQUIRED)
 find_package(OpenSSL REQUIRED)
 
-add_executable(boost_rest_demo src/http_client.cpp src/f1_client.cpp src/main.cpp)
-target_link_libraries(boost_rest_demo PRIVATE Boost::headers Boost::url Boost::json Threads::Threads OpenSSL::Crypto OpenSSL::SSL)
+add_executable(f1_demo src/http/http_client.cpp src/f1/f1_client.cpp src/f1/f1_demo.cpp)
+target_link_libraries(f1_demo PRIVATE Boost::headers Boost::url Boost::json Threads::Threads OpenSSL::Crypto OpenSSL::SSL)

@@ -47,10 +47,10 @@ http::response<ResponseBody> http_client::execute(http::request<RequestBody> req
 
     http::response<ResponseBody> res;
 
-    std::clog << "Request: " << req << std::endl;
+    // std::clog << "Request: " << req << std::endl;
     http::write(stream, req);
     http::read(stream, buffer, res);
-    std::clog << "Response: " << res << std::endl;
+    // std::clog << "Response: " << res << std::endl;
 
     if (to_status_class(res.result()) != http::status_class::successful) {
         throw std::runtime_error("Request failed");
