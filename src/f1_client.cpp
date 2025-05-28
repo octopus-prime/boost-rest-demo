@@ -31,6 +31,7 @@
 //            std::chrono::seconds{second};
 // }
 
+#if (BOOST_VERSION < 108700)
 // the voodoo magic to convert a value to a specific type and ignores unknown fields, until boost 1.87
 template<class T> void extract( boost::json::value const & val, char const * name, T & value )
 {
@@ -51,18 +52,18 @@ template<class T,
     T t{};
 
     boost::mp11::mp_for_each<D1>([&](auto D){
-        if constexpr (std::__is_std_optional<std::remove_cvref_t<decltype(t.*D.pointer)>>::value) {
-            if( auto ptr = obj.if_contains(D.name) )
-                extract(*ptr, D.name, t.*D.pointer);          
-        } else {
+        // if constexpr (std::__is_std_optional<std::remove_cvref_t<decltype(t.*D.pointer)>>::value) {
+        //     if( auto ptr = obj.if_contains(D.name) )
+        //         extract(*ptr, D.name, t.*D.pointer);          
+        // } else {
             extract(obj.at(D.name), D.name, t.*D.pointer);
-        }
+        // }
     });
 
     return t;
 }
 // -------
-
+#endif
 
 f1_client::f1_client() : client{"https://api.openf1.org:443", ssl::context::tlsv13_client} {
 }
@@ -73,6 +74,7 @@ meetings f1_client::get_meetings(std::uint64_t year) const {
     // url.set_path("/v1/meetings");
     // url.set_params({{"year", year}});
     return value_to<meetings>(client.execute<json_body>(http::verb::get, url));//, my_chrono_support{});
+    // return value_to<meetings>(client.execute<json_body>(http::verb::get, url, json::value_from(meeting{})));//, my_chrono_support{});
 }
 
 sessions f1_client::get_sessions(std::uint64_t meeting_key) const {

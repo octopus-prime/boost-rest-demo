@@ -31,16 +31,16 @@ struct http_client {
         return url;
     }
 
-    // template <typename ResponseBody, typename RequestBody>
-    // http::response<ResponseBody> execute(http::request<RequestBody>& req) const;
-
     template <typename ResponseBody>
     ResponseBody::value_type execute(http::verb verb, boost::urls::url_view url) const;
 
-    // template <typename ResponseBody>
-    // ResponseBody execute(http::verb verb, boost::urls::url_view url, json_body body) const;
+    template <typename ResponseBody>
+    ResponseBody::value_type execute(http::verb verb, boost::urls::url_view url, json_body::value_type body) const;
 
 private:
+    template <typename ResponseBody, typename RequestBody>
+    http::response<ResponseBody> execute(http::request<RequestBody> req) const;
+
     boost::urls::url_view url;
     net::io_context ioc;
     ssl::context ctx;

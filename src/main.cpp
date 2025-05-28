@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ranges>
 #include <map>
+#include <print>
 #include "f1_client.hpp"
 
 int main() {
