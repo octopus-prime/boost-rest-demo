@@ -5,13 +5,13 @@
 
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
-// #include <boost/beast/ssl.hpp>
+#include <boost/beast/ssl.hpp>
 #include <boost/beast/version.hpp>
 
 #include <boost/asio/connect.hpp>
 #include <boost/asio/ip/tcp.hpp>
-// #include <boost/asio/ssl/error.hpp>
-// #include <boost/asio/ssl/stream.hpp>
+#include <boost/asio/ssl/error.hpp>
+#include <boost/asio/ssl/stream.hpp>
 
 #include "json_body.hpp"
 
@@ -22,10 +22,10 @@ namespace ssl = net::ssl;       // from <boost/asio/ssl.hpp>
 
 using tcp = net::ip::tcp;       // from <boost/asio/ip/tcp.hpp>
 
-struct http_client {
-    http_client(std::string_view url_);
+struct https_client {
+    https_client(std::string_view url_, ssl::context::method);
 
-    ~http_client();
+    ~https_client();
 
     // const boost::urls::url_view& base_url() const {
     //     return url;
@@ -43,6 +43,7 @@ private:
 
     boost::urls::url_view url;
     net::io_context ioc;
-    mutable beast::tcp_stream stream;
+    ssl::context ctx;
+    mutable beast::ssl_stream<beast::tcp_stream> stream;
     mutable beast::flat_buffer buffer;
 };

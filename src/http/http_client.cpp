@@ -2,25 +2,16 @@
 // #include <boost/json/src.hpp>
 #include <iostream>
 
-http_client::http_client(std::string_view url_, ssl::context::method method) : url{url_}, ioc{}, ctx{method}, stream{ioc, ctx}, buffer{} {
-    ctx.set_verify_mode(ssl::verify_peer);
+http_client::http_client(std::string_view url_) : url{url_}, ioc{}, stream{ioc}, buffer{} {
     tcp::resolver resolver{ioc};
-
-    // Set SNI Hostname (many hosts need this to handshake successfully)
-    if(! SSL_set_tlsext_host_name(stream.native_handle(), url.host().c_str()))
-    {
-        boost::system::error_code ec{static_cast<int>(::ERR_get_error()), boost::asio::error::get_ssl_category()};
-        throw boost::system::system_error{ec};
-    }
-
-    auto const results = resolver.resolve(url.host(), url.scheme());
-    beast::get_lowest_layer(stream).connect(results);
-    stream.handshake(ssl::stream_base::client);    
+    // auto const results = resolver.resolve(url.host(), url.scheme());
+    auto const results = resolver.resolve(url.host(), url.port());
+    stream.connect(results);
 }
 
 http_client::~http_client() {
     beast::error_code ec;
-    stream.shutdown(ec);
+    stream.socket().shutdown(tcp::socket::shutdown_both, ec);
 }
 
 template <typename ResponseBody>
@@ -47,10 +38,10 @@ http::response<ResponseBody> http_client::execute(http::request<RequestBody> req
 
     http::response<ResponseBody> res;
 
-    // std::clog << "Request: " << req << std::endl;
+    std::clog << "Request: " << req << std::endl;
     http::write(stream, req);
     http::read(stream, buffer, res);
-    // std::clog << "Response: " << res << std::endl;
+    std::clog << "Response: " << res << std::endl;
 
     if (to_status_class(res.result()) != http::status_class::successful) {
         throw std::runtime_error("Request failed");

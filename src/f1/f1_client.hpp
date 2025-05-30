@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../http/http_client.hpp"
+#include "../http/https_client.hpp"
 #include "meeting.hpp"
 #include "session.hpp"
 #include "driver.hpp"
@@ -18,5 +18,5 @@ struct f1_client {
     positions get_positions(std::uint64_t session_key) const;
 
 private:
-    http_client client;
+    https_client client;
 };

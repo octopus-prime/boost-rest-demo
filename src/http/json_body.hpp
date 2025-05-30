@@ -1,3 +1,5 @@
+#pragma once
+
 #include <boost/json.hpp>
 #include <boost/json/stream_parser.hpp>
 #include <boost/json/monotonic_resource.hpp>

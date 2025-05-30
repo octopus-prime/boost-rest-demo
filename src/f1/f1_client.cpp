@@ -69,7 +69,7 @@ f1_client::f1_client() : client{"https://api.openf1.org", ssl::context::tlsv13_c
 }
 
 meetings f1_client::get_meetings(std::uint64_t year) const {
-    boost::urls::static_url<100> url{client.base_url()};
+    boost::urls::static_url<100> url;//{client.base_url()};
     boost::urls::format_to(url, "/v1/meetings?year={}", year);
     // url.set_path("/v1/meetings");
     // url.set_params({{"year", year}});
@@ -78,7 +78,7 @@ meetings f1_client::get_meetings(std::uint64_t year) const {
 }
 
 sessions f1_client::get_sessions(std::uint64_t meeting_key) const {
-    boost::urls::static_url<100> url{client.base_url()};
+    boost::urls::static_url<100> url;//{client.base_url()};
     boost::urls::format_to(url, "/v1/sessions?meeting_key={}", meeting_key);
     // url.set_path("/v1/sessions");
     // url.set_params({{"meeting_key", "latest"}});
@@ -86,7 +86,7 @@ sessions f1_client::get_sessions(std::uint64_t meeting_key) const {
 }
 
 drivers f1_client::get_drivers(std::uint64_t session_key) const {
-    boost::urls::static_url<100> url{client.base_url()};
+    boost::urls::static_url<100> url;//{client.base_url()};
     boost::urls::format_to(url, "/v1/drivers?session_key={}", session_key);
     // url.set_path("/v1/drivers");
     // url.set_params({{"meeting_key", "latest"}, {"session_key", "latest"}});
@@ -94,7 +94,7 @@ drivers f1_client::get_drivers(std::uint64_t session_key) const {
 }
 
 positions f1_client::get_positions(std::uint64_t session_key) const {
-    boost::urls::static_url<100> url{client.base_url()};
+    boost::urls::static_url<100> url;//{client.base_url()};
     boost::urls::format_to(url, "/v1/position?session_key={}", session_key);
     // url.set_path("/v1/positions");
     // url.set_params({{"meeting_key", "latest"}, {"session_key", "latest"}});
