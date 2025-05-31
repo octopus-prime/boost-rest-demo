@@ -21,3 +21,6 @@ target_link_libraries(f1_demo PRIVATE Boost::url Boost::json Threads::Threads Op
 
 add_executable(books_demo src/http/http_client.cpp src/books/books_client.cpp src/books/books_demo.cpp)
 target_link_libraries(books_demo PRIVATE Boost::url Boost::json Threads::Threads)
+
+add_executable(broken src/json/broken.cpp)
+target_link_libraries(broken PRIVATE Boost::json)
