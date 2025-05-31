@@ -4,8 +4,7 @@
 
 http_client::http_client(std::string_view url_) : url{url_}, ioc{}, stream{ioc}, buffer{} {
     tcp::resolver resolver{ioc};
-    // auto const results = resolver.resolve(url.host(), url.scheme());
-    auto const results = resolver.resolve(url.host(), url.port());
+    auto const results = resolver.resolve(url.host(), url.has_port() ? url.port() : url.scheme());
     stream.connect(results);
 }
 

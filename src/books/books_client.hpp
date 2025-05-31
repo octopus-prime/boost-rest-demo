@@ -6,6 +6,7 @@
 struct books_client {
     books_client();
 
+    void ping_books() const;
     void post_book(const book& b) const;
     book get_book(std::string_view isbn) const;
 

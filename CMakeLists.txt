@@ -12,12 +12,12 @@ if (WIN32)
     include(C:/Users/mikeg/source/repos/vcpkg/scripts/buildsystems/vcpkg.cmake)
 endif()
 
-find_package(Boost REQUIRED COMPONENTS headers url json)
+find_package(Boost REQUIRED COMPONENTS url json)
 find_package(Threads REQUIRED)
 find_package(OpenSSL REQUIRED)
 
 add_executable(f1_demo src/http/https_client.cpp src/f1/f1_client.cpp src/f1/f1_demo.cpp)
-target_link_libraries(f1_demo PRIVATE Boost::headers Boost::url Boost::json Threads::Threads OpenSSL::Crypto OpenSSL::SSL)
+target_link_libraries(f1_demo PRIVATE Boost::url Boost::json Threads::Threads OpenSSL::Crypto OpenSSL::SSL)
 
 add_executable(books_demo src/http/http_client.cpp src/books/books_client.cpp src/books/books_demo.cpp)
-target_link_libraries(books_demo PRIVATE Boost::headers Boost::url Boost::json Threads::Threads)
+target_link_libraries(books_demo PRIVATE Boost::url Boost::json Threads::Threads)

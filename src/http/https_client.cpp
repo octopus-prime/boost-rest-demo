@@ -13,7 +13,7 @@ https_client::https_client(std::string_view url_, ssl::context::method method) :
         throw boost::system::system_error{ec};
     }
 
-    auto const results = resolver.resolve(url.host(), url.scheme());
+    auto const results = resolver.resolve(url.host(), url.has_port() ? url.port() : url.scheme());
     beast::get_lowest_layer(stream).connect(results);
     stream.handshake(ssl::stream_base::client);    
 }
@@ -47,10 +47,10 @@ http::response<ResponseBody> https_client::execute(http::request<RequestBody> re
 
     http::response<ResponseBody> res;
 
-    std::clog << "Request: " << req << std::endl;
+    // std::clog << "Request: " << req << std::endl;
     http::write(stream, req);
     http::read(stream, buffer, res);
-    std::clog << "Response: " << res << std::endl;
+    // std::clog << "Response: " << res << std::endl;
 
     if (to_status_class(res.result()) != http::status_class::successful) {
         throw std::runtime_error("Request failed");
