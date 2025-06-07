@@ -50,7 +50,10 @@ http::response<ResponseBody> http_client::execute(http::request<RequestBody> req
 }
 
 
-template http::empty_body::value_type http_client::execute<http::empty_body>(http::verb, boost::urls::url_view) const;
-template http::empty_body::value_type http_client::execute<http::empty_body>(http::verb, boost::urls::url_view, json_body::value_type) const;
+// template http::empty_body::value_type http_client::execute<http::empty_body>(http::verb, boost::urls::url_view) const;
+// template http::empty_body::value_type http_client::execute<http::empty_body>(http::verb, boost::urls::url_view, json_body::value_type) const;
 template json_body::value_type http_client::execute<json_body>(http::verb, boost::urls::url_view) const;
 template json_body::value_type http_client::execute<json_body>(http::verb, boost::urls::url_view, json_body::value_type) const;
+
+template http::dynamic_body::value_type http_client::execute<http::dynamic_body>(http::verb, boost::urls::url_view) const;
+template http::dynamic_body::value_type http_client::execute<http::dynamic_body>(http::verb, boost::urls::url_view, json_body::value_type) const;

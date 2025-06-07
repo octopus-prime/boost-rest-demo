@@ -31,10 +31,10 @@ struct http_client {
     //     return url;
     // }
 
-    template <typename ResponseBody>
+    template <typename ResponseBody = http::dynamic_body>
     ResponseBody::value_type execute(http::verb verb, boost::urls::url_view url) const;
 
-    template <typename ResponseBody>
+    template <typename ResponseBody = http::dynamic_body>
     ResponseBody::value_type execute(http::verb verb, boost::urls::url_view url, json_body::value_type body) const;
 
 private:
